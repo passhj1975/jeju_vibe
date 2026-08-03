@@ -1,0 +1,796 @@
+<title>제주 반백 농구단</title>
+<style>
+  :root {
+    --bg: #EFF1EA;
+    --bg-elevated: #E3E6DA;
+    --card: #F7F6F0;
+    --text: #1E1C19;
+    --text-muted: #57534A;
+    --accent: #E2660D;
+    --accent-strong: #B84D0A;
+    --accent-tint: #F6DCC4;
+    --sea: #1F6F72;
+    --sea-tint: #D7E7E4;
+    --line: rgba(30, 28, 25, 0.15);
+    --shadow: 0 18px 40px -22px rgba(30, 28, 25, 0.35);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1A1815;
+      --bg-elevated: #221F19;
+      --card: #262219;
+      --text: #ECE7DC;
+      --text-muted: #B3AC9C;
+      --accent: #F0813A;
+      --accent-strong: #F6A05C;
+      --accent-tint: #3A2A1B;
+      --sea: #4FA6A0;
+      --sea-tint: #1E3230;
+      --line: rgba(236, 231, 220, 0.16);
+      --shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #1A1815;
+    --bg-elevated: #221F19;
+    --card: #262219;
+    --text: #ECE7DC;
+    --text-muted: #B3AC9C;
+    --accent: #F0813A;
+    --accent-strong: #F6A05C;
+    --accent-tint: #3A2A1B;
+    --sea: #4FA6A0;
+    --sea-tint: #1E3230;
+    --line: rgba(236, 231, 220, 0.16);
+    --shadow: 0 18px 44px -20px rgba(0, 0, 0, 0.6);
+  }
+
+  :root[data-theme="light"] {
+    --bg: #EFF1EA;
+    --bg-elevated: #E3E6DA;
+    --card: #F7F6F0;
+    --text: #1E1C19;
+    --text-muted: #57534A;
+    --accent: #E2660D;
+    --accent-strong: #B84D0A;
+    --accent-tint: #F6DCC4;
+    --sea: #1F6F72;
+    --sea-tint: #D7E7E4;
+    --line: rgba(30, 28, 25, 0.15);
+    --shadow: 0 18px 40px -22px rgba(30, 28, 25, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Apple SD Gothic Neo", "Pretendard", "Malgun Gothic", "Noto Sans KR", sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .mono {
+    font-family: "SF Mono", "SFMono-Regular", Menlo, Consolas, "Roboto Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  a { color: inherit; }
+
+  img, svg, canvas { display: block; max-width: 100%; }
+
+  h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 800; letter-spacing: -0.01em; }
+
+  p { margin: 0; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Header ---------- */
+
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+
+  .brand .mark {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #FFFBF5;
+    padding: 13px 26px;
+    box-shadow: var(--shadow);
+  }
+  .btn-primary:hover { background: var(--accent-strong); transform: translateY(-1px); }
+  .btn-primary:focus-visible { outline: 3px solid var(--sea); outline-offset: 3px; }
+
+  .btn-small { padding: 10px 20px; font-size: 15px; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--line);
+    padding: 12px 22px;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent-strong); }
+  .btn-ghost:focus-visible { outline: 3px solid var(--sea); outline-offset: 3px; }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: center;
+    padding: 76px 0 88px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sea);
+    margin-bottom: 20px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: var(--sea);
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.18;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero p.lede {
+    margin-top: 22px;
+    max-width: 46ch;
+    font-size: 19px;
+    color: var(--text-muted);
+  }
+
+  .hero-actions {
+    margin-top: 34px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .court-scene {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 28px;
+    background:
+      radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
+      var(--bg-elevated);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .court-scene::before,
+  .court-scene::after {
+    content: "";
+    position: absolute;
+    border: 1.5px solid color-mix(in srgb, var(--text) 22%, transparent);
+    border-radius: 50%;
+  }
+  .court-scene::before {
+    width: 62%;
+    aspect-ratio: 1;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .court-scene::after {
+    width: 132%;
+    aspect-ratio: 1;
+    bottom: -78%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-color: color-mix(in srgb, var(--text) 14%, transparent);
+  }
+
+  .court-scene .paint {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44%;
+    height: 34%;
+    border: 1.5px solid color-mix(in srgb, var(--text) 22%, transparent);
+    border-bottom: none;
+  }
+
+  .court-scene canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ---------- Sections ---------- */
+
+  section { padding: 84px 0; }
+  section.tight { padding: 64px 0; }
+
+  .section-head {
+    max-width: 58ch;
+    margin-bottom: 46px;
+  }
+
+  .section-head .eyebrow { color: var(--accent); }
+  .section-head .eyebrow::before { background: var(--accent); }
+
+  .section-head h2 {
+    font-size: clamp(28px, 3.4vw, 38px);
+    line-height: 1.28;
+  }
+
+  .section-head p {
+    margin-top: 16px;
+    color: var(--text-muted);
+    font-size: 17px;
+  }
+
+  /* Pain points */
+
+  .pain-band { background: var(--bg-elevated); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .pain-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 26px;
+  }
+
+  .pain-card .num {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .pain-card h3 {
+    margin-top: 14px;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  .pain-card p {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 16px;
+  }
+
+  /* About */
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .about-copy p { color: var(--text-muted); font-size: 17.5px; }
+  .about-copy p + p { margin-top: 16px; }
+
+  .scoreboard {
+    background: #17140F;
+    border-radius: 20px;
+    padding: 30px 26px;
+    box-shadow: var(--shadow);
+  }
+
+  .scoreboard-title {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #B9AF9A;
+    margin-bottom: 20px;
+  }
+
+  .scoreboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 24px;
+  }
+
+  .stat {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 14px;
+  }
+
+  .stat .figure {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat .label {
+    margin-top: 6px;
+    font-size: 13.5px;
+    color: #9C9384;
+  }
+
+  .stat-note {
+    margin-top: 22px;
+    font-size: 12.5px;
+    color: #766E5F;
+    line-height: 1.6;
+  }
+
+  /* Activities */
+
+  .activity-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .activity-card {
+    padding: 26px 22px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    height: 100%;
+  }
+
+  .activity-card .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--accent-tint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .activity-card .icon svg { width: 20px; height: 20px; stroke: var(--accent-strong); }
+
+  .activity-card h3 {
+    margin-top: 18px;
+    font-size: 17.5px;
+    font-weight: 800;
+  }
+
+  .activity-card p {
+    margin-top: 8px;
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+
+  /* Steps */
+
+  .steps-band { background: var(--bg-elevated); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+  }
+
+  .step {
+    padding: 8px 28px 8px 0;
+    position: relative;
+  }
+
+  .step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 26px;
+    right: 0;
+    width: 28px;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .step .step-num {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 15px;
+    color: var(--sea);
+    font-weight: 700;
+  }
+
+  .step h3 {
+    margin-top: 12px;
+    font-size: 19px;
+    font-weight: 800;
+  }
+
+  .step p {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 15.5px;
+  }
+
+  /* Final CTA */
+
+  .final-cta {
+    text-align: center;
+    padding: 96px 0 100px;
+  }
+
+  .final-cta h2 {
+    font-size: clamp(30px, 4vw, 44px);
+    max-width: 20ch;
+    margin: 0 auto;
+  }
+
+  .final-cta p.lede {
+    margin: 18px auto 0;
+    max-width: 48ch;
+    color: var(--text-muted);
+    font-size: 17.5px;
+  }
+
+  .final-cta .btn-primary {
+    margin-top: 32px;
+    font-size: 18px;
+    padding: 17px 38px;
+  }
+
+  .contact-hint {
+    margin-top: 18px;
+    font-size: 14.5px;
+    color: var(--text-muted);
+  }
+  .contact-hint .mono { color: var(--sea); }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+  }
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--sea); outline-offset: 2px; }
+
+  @media (max-width: 860px) {
+    .hero-inner { grid-template-columns: 1fr; padding: 52px 0 56px; }
+    .court-scene { max-width: 340px; margin: 0 auto; }
+    .pain-grid, .activity-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .steps { grid-template-columns: 1fr; gap: 28px; }
+    .step:not(:last-child)::after { display: none; }
+    section { padding: 60px 0; }
+  }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .pain-grid, .activity-grid { grid-template-columns: 1fr; }
+    .scoreboard-grid { grid-template-columns: 1fr 1fr; }
+    .header-row .btn-primary span.long { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+
+<header class="site">
+  <div class="wrap header-row">
+    <div class="brand"><span class="mark"></span>제주 반백 농구단</div>
+    <a class="btn btn-primary btn-small" href="#apply"><span class="long">모임 참여 신청</span><span aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow">제주 · 5060 농구 동호회</div>
+      <h1>후반전은,<br><em>우리끼리</em> 뛴다</h1>
+      <p class="lede">30년 넘게 공을 놓지 않은 제주의 50대, 60대 농구인들이 모입니다. 비슷한 체력, 비슷한 속도로 마음 편히 뛸 사람들과 함께 다시 코트에 섭니다.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#apply">모임 참여 신청</a>
+        <a class="btn btn-ghost" href="#about">동호회 소개 보기</a>
+      </div>
+    </div>
+    <div class="court-scene" aria-hidden="true">
+      <div class="paint"></div>
+      <canvas id="arcCanvas"></canvas>
+    </div>
+  </div>
+</section>
+
+<section class="pain-band">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">이런 이유로 코트에서 멀어졌다면</div>
+      <h2>젊은 선수들 틈에서, 눈치 보지 않고 뛰고 싶다</h2>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="num mono">01</div>
+        <h3>속도가 안 맞아서</h3>
+        <p>20~30대와 뛰면 무릎이, 심장이 먼저 지칩니다. 경기를 즐기기보다 버티는 시간이 되어버립니다.</p>
+      </div>
+      <div class="pain-card">
+        <div class="num mono">02</div>
+        <h3>같이 뛸 사람이 없어서</h3>
+        <p>오래 함께한 팀원들은 하나둘 코트를 떠났습니다. 예전처럼 전화 한 통으로 다섯 명을 모으기 어렵습니다.</p>
+      </div>
+      <div class="pain-card">
+        <div class="num mono">03</div>
+        <h3>다치는 게 걱정돼서</h3>
+        <p>무리한 몸싸움 없이, 서로의 체력을 알아주는 사람들과 안전하게 즐기고 싶습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <div class="eyebrow">구력 30년, 이제는 나이로 뭉친다</div>
+      <h2 style="font-size: clamp(26px, 3vw, 34px); line-height: 1.3;">실력보다 세월을 함께한 사람들의 모임</h2>
+      <p style="margin-top: 22px;">제주 반백 농구단은 서른 해 넘게 농구를 취미로 살아온 50대 이상 동호인들의 모임입니다. 결과보다 함께 뛰는 시간을, 승부보다 다음 주에도 코트에 설 수 있는 몸 상태를 더 소중히 여깁니다.</p>
+      <p>매 경기는 참가자의 체력에 맞춰 쿼터와 인원을 조정하고, 몸싸움이 심해지면 심판 역할을 맡은 회원이 먼저 속도를 늦춥니다. 처음 오시는 분도 부담 없이 몸을 풀 수 있도록 배려합니다.</p>
+    </div>
+    <div class="scoreboard">
+      <div class="scoreboard-title">활동 스코어보드 · 예시</div>
+      <div class="scoreboard-grid">
+        <div class="stat">
+          <div class="figure mono">31년</div>
+          <div class="label">평균 농구 구력</div>
+        </div>
+        <div class="stat">
+          <div class="figure mono">52–74</div>
+          <div class="label">참가 연령대</div>
+        </div>
+        <div class="stat">
+          <div class="figure mono">주 2회</div>
+          <div class="label">정기 모임 빈도</div>
+        </div>
+        <div class="stat">
+          <div class="figure mono">제주·서귀포</div>
+          <div class="label">활동 지역</div>
+        </div>
+      </div>
+      <div class="stat-note">위 수치는 모임 구성에 맞춰 채워 넣을 예시입니다.</div>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">활동 내용</div>
+      <h2>체력에 맞춘 훈련과 경기</h2>
+      <p>부상 없이, 꾸준히 오래 뛰는 것을 목표로 활동을 설계합니다.</p>
+    </div>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18"/></svg></div>
+        <h3>정기 연습</h3>
+        <p>주 2회, 기본기와 체력 수준에 맞춘 하프코트 훈련을 진행합니다.</p>
+      </div>
+      <div class="activity-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M12 20V4M20 20v-7"/></svg></div>
+        <h3>미니 게임</h3>
+        <p>무리 없는 인원과 시간으로 진행하는 친선 경기로 승부보다 재미를 우선합니다.</p>
+      </div>
+      <div class="activity-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-8.8C.6 8.4 2.4 5 6 5c2 0 3.5 1.2 6 4 2.5-2.8 4-4 6-4 3.6 0 5.4 3.4 3.5 7.2C19 16.65 12 21 12 21Z"/></svg></div>
+        <h3>체력·부상 관리</h3>
+        <p>준비운동과 스트레칭 중심으로, 무릎과 어깨 부담을 줄이는 방식으로 운영합니다.</p>
+      </div>
+      <div class="activity-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.4-4 8-9 8-1.4 0-2.8-.3-4-.8L3 20l1-4.3C3.4 14.4 3 13.2 3 12c0-4.4 4-8 9-8s9 3.6 9 8Z"/></svg></div>
+        <h3>친목 모임</h3>
+        <p>운동 후 함께하는 식사와 이야기로 오래 함께할 관계를 만듭니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-band">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom: 40px;">
+      <div class="eyebrow">참여 절차</div>
+      <h2>세 단계면 충분합니다</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num mono">STEP 1</div>
+        <h3>참여 신청서 작성</h3>
+        <p>이름, 연락처, 농구 경력을 간단히 남겨주시면 담당자가 확인 후 연락드립니다.</p>
+      </div>
+      <div class="step">
+        <div class="step-num mono">STEP 2</div>
+        <h3>체험 참가</h3>
+        <p>부담 없이 한 번, 정기 모임에 함께 하며 분위기와 강도를 직접 느껴보세요.</p>
+      </div>
+      <div class="step">
+        <div class="step-num mono">STEP 3</div>
+        <h3>정회원 활동</h3>
+        <p>정기 일정에 합류해 같은 세대의 동료들과 꾸준히 함께 뛰어요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="apply">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content: center;">지금 신청하면 다음 모임부터 함께합니다</div>
+    <h2>인생 후반전, 다시 코트로</h2>
+    <p class="lede">망설이지 마세요. 비슷한 나이, 비슷한 마음으로 공을 잡을 사람들이 기다리고 있습니다.</p>
+    <a class="btn btn-primary" href="mailto:passhj1975@gmail.com?subject=%5B%EC%A0%9C%EC%A3%BC%20%EB%B0%98%EB%B0%B1%20%EB%86%8D%EA%B5%AC%EB%8B%A8%5D%20%EB%AA%A8%EC%9E%84%20%EC%B0%B8%EC%97%AC%20%EC%8B%A0%EC%B2%AD&body=%EC%9D%B4%EB%A6%84%3A%20%0A%EC%97%B0%EB%9D%BD%EC%B2%98%3A%20%0A%EB%86%8D%EA%B5%AC%20%EA%B2%BD%EB%A0%A5(%EA%B5%AC%EB%A0%A5)%3A%20%0A%EA%B1%B0%EC%A3%BC%20%EC%A7%80%EC%97%AD%3A%20">모임 참여 신청</a>
+    <div class="contact-hint">신청 메일이 바로 열리지 않는다면 <span class="mono">passhj1975@gmail.com</span> 으로 직접 보내주세요.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <div>제주 반백 농구단</div>
+    <div>문의 <span class="mono">passhj1975@gmail.com</span></div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var canvas = document.getElementById('arcCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function accentColor() {
+      return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#E2660D';
+    }
+
+    function resize() {
+      var rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    var hoopX = 0.5, hoopY = 0.16;
+    var t = 0;
+
+    function arcPoint(progress) {
+      var startX = 0.18, startY = 0.86;
+      var x = startX + (hoopX - startX) * progress;
+      var peak = 0.30;
+      var y = startY + (hoopY - startY) * progress - Math.sin(Math.PI * progress) * peak;
+      return { x: x, y: y };
+    }
+
+    function draw() {
+      var w = canvas.width, h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+      var color = accentColor();
+
+      // hoop
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.5 * dpr;
+      ctx.beginPath();
+      ctx.ellipse(hoopX * w, hoopY * h, 0.09 * w, 0.022 * h, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // trail
+      ctx.beginPath();
+      for (var i = 0; i <= 40; i++) {
+        var p = arcPoint(i / 40 * Math.min(t, 1));
+        var px = p.x * w, py = p.y * h;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.35;
+      ctx.lineWidth = 1.5 * dpr;
+      ctx.setLineDash([2 * dpr, 6 * dpr]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+
+      // ball
+      var bp = arcPoint(Math.min(t, 1));
+      ctx.beginPath();
+      ctx.fillStyle = color;
+      ctx.arc(bp.x * w, bp.y * h, 0.028 * w, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (reduce) {
+      t = 1;
+      draw();
+      return;
+    }
+
+    function loop() {
+      t += 0.012;
+      if (t > 1.4) t = 0;
+      draw();
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
+</script>
